@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>URL Breadcrumbs test</title>
+    
+</head>
+
+<body>
+    <h1>This is a urlbreadcrumbs test page</h1>
+
+    <h2>
+        MENU
+    </h2>
+    <ul>
+
+        <li>
+            <a href="/">Home</a> |
+            <ul>
+                <li>
+                    <a href="/test1/">Test1</a> |
+                    <ul>
+                        <li>
+                            <a href="/test1/aaa">Test1 subpage</a> |
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/test2/aaa">Test2 subpage</a> |
+                </li>
+            </ul>
+        </li>
+        
+    </ul>
+
+    <hr>
+    <h2>
+    BREADCRUMBS
+    </h2>
+        
+        {% include "urlbreadcrumbs/default.html" %}
+    <hr>
+
+    <h2>
+    CONTENT
+    </h2>
+    {% block content %}
+        here is content of a page
+    {% endblock %}
+</body>
+
+</html>
