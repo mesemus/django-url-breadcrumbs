@@ -3,3 +3,7 @@ syntax: regexp
 \.swp$
 (?!^\.hgignore$)^\.
 
+syntax:glob
+dist
+build
+*egg-info
