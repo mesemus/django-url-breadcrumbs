@@ -1,8 +1,16 @@
 ========================================
-Future plans for django-url-breadcrumbs
+Tasklist for django-url-breadcrumbs
+========================================
+
+Done
+=========
+
+* make a template (like ``default.html``) compatible with twitter-bootstrap
+
+
+Future plans
 ========================================
 
 * make compatible with older Django versions
-* make a template (like ``default.html``) compatible with twitter-bootstrap
 * provide mapping for url_patterns without a name
 
