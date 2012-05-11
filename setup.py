@@ -30,6 +30,7 @@ setup(
     packages=[
         'urlbreadcrumbs',
     ],
+    include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
