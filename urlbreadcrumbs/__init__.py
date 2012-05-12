@@ -1,3 +1,3 @@
-from url_hacks import url
+from url_hacks import url, BreadRegexURLResolver
 
 __version__ = "0.1.2"

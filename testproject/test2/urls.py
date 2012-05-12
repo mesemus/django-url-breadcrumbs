@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic.simple import direct_to_template
+from urlbreadcrumbs import url
 
 urlpatterns = patterns('',
-    url(r'^aaa/$', direct_to_template, {'template' : 't2sub.html'}, name='t2aaa'),
+    url(r'^aaa/$', 'django.views.generic.simple.direct_to_template', {'template' : 't2sub.html'}, name='t2aaa', verbose_name="T2 test page"),
 )
