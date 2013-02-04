@@ -11,7 +11,7 @@
     <h1>This is a urlbreadcrumbs test page</h1>
 
     <h2>
-        MENU
+        MENU (click on element and see how breadrumbs change)
     </h2>
     <ul>
 
@@ -38,9 +38,18 @@
     <h2>
     BREADCRUMBS
     </h2>
-        
+    <h3> by template inclusion </h3>
         {% include "urlbreadcrumbs/default.html" %}
-    <hr>
+    <hr/>
+        
+    <h3> by templatetag </h3>
+    <h4> default </h4>
+        {% load urlbreadcrumbs_tags %}
+        {% render_breadcrumbs %}
+        
+    <h4> twitter bootstrap (no CSS) </h4>
+        {% render_breadcrumbs "urlbreadcrumbs/twitter-bootstrap.html" %}
+    <hr/>
 
     <h2>
     CONTENT
