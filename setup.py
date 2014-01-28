@@ -1,7 +1,7 @@
 import codecs
 import re
 from os import path
-from setuptools import setup
+from setuptools import setup, Command
 
 
 def read(*parts):
@@ -18,6 +18,17 @@ def find_version(*parts):
     raise RuntimeError("Unable to find version string.")
 
 
+class PyTest(Command):
+    user_options = []
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        import sys,subprocess
+        errno = subprocess.call([sys.executable, 'runtests.py', '--ds=urlbreadcrumbs.tests.settings'])
+        raise SystemExit(errno)
+
 setup(
     name='django-url-breadcrumbs',
     version=find_version('urlbreadcrumbs', '__init__.py'),
@@ -29,7 +40,9 @@ setup(
     url='https://bitbucket.org/slafs/django-url-breadcrumbs/',
     packages=[
         'urlbreadcrumbs',
+        'urlbreadcrumbs.tests',
     ],
+    cmdclass = {'test': PyTest},
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
