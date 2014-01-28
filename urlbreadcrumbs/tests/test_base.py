@@ -1,9 +1,13 @@
 #encoding: utf-8
 
-from django.test import SimpleTestCase
+from django.test import TestCase, Client
 # from urlbreadcrumbs.tests.views import index
 
-class BreadcrumbsTest(SimpleTestCase):
+class BreadcrumbsTest(TestCase):
+
+    def setUp(self):
+        if not hasattr(self, 'client'):
+            self.client = Client()
 
     def test_index(self):
         res = self.client.get('/')
