@@ -11,6 +11,7 @@ Done
 Future plans
 ========================================
 
-* make compatible with older Django versions
 * provide mapping for url_patterns without a name
+* provide a nicer way for apps to describe their name mappings (like with admin.py in django.contrib.admin)
+* support urls namespaces and/or be namespace agnostic
 
