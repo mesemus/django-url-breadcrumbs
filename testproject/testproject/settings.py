@@ -35,3 +35,4 @@ URLBREADCRUMBS_NAME_MAPPING = {
 
 URLBREADCRUMBS_RESOLVER = 'urlbreadcrumbs.BreadRegexURLResolver'
 
+SECRET_KEY="top-secret"
