@@ -1,3 +1,3 @@
-from .url_hacks import BreadRegexURLResolver, BreadRegexURLPattern, url
+from .url_hacks import BreadRegexURLResolver, url
 
 __version__ = "0.3.0"

@@ -97,7 +97,18 @@ So now, assuming template ``t1.html`` is extending ``base.html``, when viewing `
 you should see something like this ``Home page » Index page of Test1``.
 
 Another way of specyfing a name for a breadcrumb is to use a custom ``url`` function in your ``urls.py``.
-Instead of defining a mapping in ``URLBREADCRUMBS_NAME_MAPPING`` setting you can do this in ``urls.py`` of your ``test1`` application::
+Instead of defining a mapping in ``URLBREADCRUMBS_NAME_MAPPING`` setting you can do this in ``urls.py`` of your ``ROOT_URLCONF`` and ``test1`` application::
+
+    from django.conf.urls import patterns, include, url
+    from urlbreadcrumbs import url as burl
+
+    urlpatterns = patterns('',
+        ...
+        burl(r'^test1/', include(test1_urls)),
+        ...
+    )
+
+and ::
 
     from django.conf.urls import patterns, include, url
     from test1.views import some_view
