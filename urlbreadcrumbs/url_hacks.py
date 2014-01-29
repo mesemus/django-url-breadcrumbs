@@ -1,6 +1,5 @@
 from django.conf.urls import url as djurl
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver, ResolverMatch, Resolver404
-from urlbreadcrumbs.conf import RESOLVER
 from django.utils.encoding import iri_to_uri, smart_str
 try:
     from django.utils.encoding import force_unicode
@@ -58,10 +57,7 @@ class BreadRegexURLResolver(RegexURLResolver):
 
 
 def url(*args, **kwargs):
-    if RESOLVER is None:
-        import warnings
-        warnings.warn("You should provide a URLBREADCRUMBS_RESOLVER in your settings (eg. 'urlbreadcrumbs.BreadRegexURLResolver') "
-                "in order to correctly use the url function provided by django-url-breadcrumbs")
+
     vn = kwargs.pop("verbose_name", None)
     reg = djurl(*args, **kwargs)
 

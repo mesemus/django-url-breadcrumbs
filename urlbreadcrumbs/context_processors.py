@@ -1,16 +1,27 @@
 from django.core.urlresolvers import RegexURLPattern, get_resolver, Resolver404, RegexURLResolver, resolve
 from django.conf import settings
 from urlbreadcrumbs.url_hacks import BreadRegexURLResolver
-from django.utils.importlib import import_module
 from urlbreadcrumbs.conf import NAME_MAPPING, PATH_SPLIT_CHAR, RESOLVER
+from django.utils.importlib import import_module
 
+
+if RESOLVER is not None:
+    resolver_package, resolver_class_name = RESOLVER.rsplit(".", 1)
+    resolver_class = getattr(import_module(resolver_package), resolver_class_name)
+    resolver = resolver_class(r'^' + PATH_SPLIT_CHAR, settings.ROOT_URLCONF)
+else:
+    resolver = None
+
+RESOLVER_INSTANCE = resolver
 
 def build_breadcrumbs(request):
+    if RESOLVER_INSTANCE is None:
+        import warnings
+        warnings.warn("You should provide a URLBREADCRUMBS_RESOLVER in your settings (eg. 'urlbreadcrumbs.BreadRegexURLResolver') "
+                "in order to correctly use the url function provided by django-url-breadcrumbs")
 
-    if RESOLVER is not None:
-        resolver_package, resolver_class_name = RESOLVER.rsplit(".", 1)
-        resolver_class = getattr(import_module(resolver_package), resolver_class_name)
-        resolver = resolver_class(r'^' + PATH_SPLIT_CHAR, settings.ROOT_URLCONF)
+    if RESOLVER_INSTANCE is not None:
+        resolver = RESOLVER_INSTANCE
     else:
         resolver = get_resolver(settings.ROOT_URLCONF)
 

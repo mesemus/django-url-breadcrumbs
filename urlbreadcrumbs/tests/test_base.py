@@ -22,3 +22,10 @@ class BreadcrumbsTest(TestCase):
 
         text = "Index page of Test1"
         self.assertContains(res, text, count = 3, html=False)
+
+    def test_url(self):
+        res = self.client.get('/test1/aaa/')
+        assert res.status_code == 200
+
+        text = "Test1 subpage via custom url function"
+        self.assertContains(res, text, count = 3, html=False)
