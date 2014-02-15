@@ -2,6 +2,10 @@
 django-url-breadcrumbs
 ========================
 
+.. image:: https://drone.io/bitbucket.org/slafs/django-url-breadcrumbs/status.png
+       :target: https://drone.io/bitbucket.org/slafs/django-url-breadcrumbs/latest
+
+
 An app for generic breadcrumbs in Django (>= 1.4).
 
 The idea is to make breadcrumbs out of parts of an url path. This application assumes that your url patterns are well structured. For example like this::
