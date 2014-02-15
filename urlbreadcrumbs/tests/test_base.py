@@ -3,6 +3,7 @@
 from django.test import TestCase, Client
 # from urlbreadcrumbs.tests.views import index
 
+
 class BreadcrumbsTest(TestCase):
 
     def setUp(self):
