@@ -15,5 +15,3 @@ def render_breadcrumbs(context, template_name = "urlbreadcrumbs/default.html"):
     t = template.loader.get_template(template_name)
     context.update(c_vars)
     return t.render(context)
-
-

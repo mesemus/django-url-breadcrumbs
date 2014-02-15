@@ -1,10 +1,6 @@
 from django.conf.urls import url as djurl
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver, ResolverMatch, Resolver404
-from django.utils.encoding import iri_to_uri, smart_str
-try:
-    from django.utils.encoding import force_unicode
-except ImportError:
-    from django.utils.encoding import force_text as force_unicode
+from django.utils.encoding import smart_str
 
 
 class BreadRegexURLPattern(RegexURLPattern):
@@ -23,7 +19,8 @@ class BreadRegexURLResolver(RegexURLResolver):
     def resolve(self, path):
         '''
         this is rewritten from django.core.urlresolvers
-        because playing with URL patterns and resolvers in Django<=1.4 is weird. Probably because of the recursion.
+        because playing with URL patterns and resolvers in Django<=1.4 is weird.
+        Probably because of the recursion.
         Really! Try it yourself.
         FIXME: As of Django 1.4 this shouldn't be necessary!
         '''
@@ -47,8 +44,11 @@ class BreadRegexURLResolver(RegexURLResolver):
                         for k, v in sub_match.kwargs.items():
                             sub_match_dict[smart_str(k)] = v
                         res_match = ResolverMatch(sub_match.func, sub_match.args, sub_match_dict,
-                                sub_match.url_name, self.app_name or sub_match.app_name, [self.namespace] + sub_match.namespaces)
-                        res_match.breadcrumb_verbose_name = getattr(sub_match, 'breadcrumb_verbose_name', None)
+                                                  sub_match.url_name,
+                                                  self.app_name or sub_match.app_name,
+                                                  [self.namespace] + sub_match.namespaces)
+                        res_match.breadcrumb_verbose_name = getattr(sub_match,
+                                                                    'breadcrumb_verbose_name', None)
 
                         return res_match
                     tried.append([pattern])
@@ -68,4 +68,3 @@ def url(*args, **kwargs):
         reg.__class__ = BreadRegexURLResolver
 
     return reg
-
