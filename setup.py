@@ -1,7 +1,7 @@
 import codecs
 import re
 from os import path
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
 
 
 def read(*parts):
@@ -38,10 +38,7 @@ setup(
     author_email='slafs@op.pl',
     license='BSD',
     url='https://bitbucket.org/slafs/django-url-breadcrumbs/',
-    packages=[
-        'urlbreadcrumbs',
-        'urlbreadcrumbs.tests',
-    ],
+    packages=find_packages(exclude=['testproject']),
     cmdclass = {'test': PyTest},
     include_package_data=True,
     classifiers=[
