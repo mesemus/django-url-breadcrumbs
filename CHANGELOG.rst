@@ -2,6 +2,10 @@
 CHANGELOG
 ===========
 
+v. 0.3.3
+=========
+
+* Fix packaging issue.
 
 v. 0.3
 ==========
