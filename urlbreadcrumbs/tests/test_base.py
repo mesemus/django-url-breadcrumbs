@@ -40,6 +40,36 @@ class BreadcrumbsTest(TestCase):
         text = 'Arg from view: 123'
         self.assertContains(res, text, count = 1, html=False)
 
+    def test_sub1_with_ns_and_pk_as_template(self):
+        res = self.client.get('/test1_namespace/bbb/321/')
+        assert res.status_code == 200
+
+        # simple inclusion doesn't treat mappings as templates
+        text = 'Example of a detail view with pk: {{ pk }}'
+        self.assertContains(res, text, count = 1, html=False)
+
+        # but rendering breadcrumbs as a templatetag does
+        text = 'Example of a detail view with pk: 321'
+        self.assertContains(res, text, count = 2, html=False)
+
+        text = 'Arg from view: 321'
+        self.assertContains(res, text, count = 1, html=False)
+
+    def test_sub1_with_ns_and_pk_as_template_verbose_name(self):
+        res = self.client.get('/test1/ccc/111/')
+        assert res.status_code == 200
+
+        # simple inclusion doesn't treat mappings as templates
+        text = 'Test1 subpage via custom url with context var {{ pk }}'
+        self.assertContains(res, text, count = 1, html=False)
+
+        # but rendering breadcrumbs as a templatetag does
+        text = 'Test1 subpage via custom url with context var 111'
+        self.assertContains(res, text, count = 2, html=False)
+
+        text = 'Arg from view: 111'
+        self.assertContains(res, text, count = 1, html=False)
+
     def test_url(self):
         res = self.client.get('/test1/aaa/')
         assert res.status_code == 200

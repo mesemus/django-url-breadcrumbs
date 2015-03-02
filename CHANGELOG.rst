@@ -2,6 +2,12 @@
 CHANGELOG
 ===========
 
+v. 0.3.4
+=========
+
+* Ability to pass template strings in mapping/verbose_name
+
+
 v. 0.3.3
 =========
 

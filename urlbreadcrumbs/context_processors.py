@@ -1,7 +1,13 @@
 from django.core.urlresolvers import get_resolver, Resolver404
 from django.conf import settings
+from django.template import Template
+
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
+
 from urlbreadcrumbs.conf import NAME_MAPPING, PATH_SPLIT_CHAR, RESOLVER
-from django.utils.importlib import import_module
 
 
 if RESOLVER is not None:
@@ -14,7 +20,7 @@ else:
 RESOLVER_INSTANCE = resolver
 
 
-def build_breadcrumbs(request):
+def build_breadcrumbs(request, context=None):
     if RESOLVER_INSTANCE is None:
         import warnings
         warnings.warn("You should provide a URLBREADCRUMBS_RESOLVER in your settings "
@@ -54,6 +60,10 @@ def build_breadcrumbs(request):
                     name = resolver_match.breadcrumb_verbose_name
                 else:
                     name = resolver_match.url_name
+
+                if context is not None:
+                    tpl = Template(name)
+                    name = tpl.render(context)
 
                 ret_list.append((name, try_path))
 

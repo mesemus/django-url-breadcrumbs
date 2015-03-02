@@ -11,17 +11,24 @@ test1_urls = patterns('',
                       burl(r'^aaa/$', simple_view,
                            {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
                            name='t1aaa',
-                           verbose_name = "Test1 subpage via custom url function"),
+                           verbose_name = 'Test1 subpage via custom url function'),
                       url(r'^aaa/(?P<pk>\d+)/$', simple_view_with_arg,
                           {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
-                          name='t1aaa_pk')
+                          name='t1aaa_pk'),
+                      url(r'^bbb/(?P<pk>\d+)/$', simple_view_with_arg,
+                          {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
+                          name='t1bbb_pk'),
+                      burl(r'^ccc/(?P<pk>\d+)/$', simple_view_with_arg,
+                           {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
+                           name='t1ccc_pk',
+                           verbose_name='Test1 subpage via custom url with context var {{ pk }}'),
                       )
 
 test2_urls = patterns('',
                       burl(r'^aaa/$', simple_view,
                            {'template' : 'urlbreadcrumbs_tests/t2sub.html'},
                            name='t2aaa',
-                           verbose_name="T2 test page"),
+                           verbose_name='T2 test page'),
                       )
 
 

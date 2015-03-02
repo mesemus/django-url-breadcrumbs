@@ -11,7 +11,7 @@ def render_breadcrumbs(context, template_name = "urlbreadcrumbs/default.html"):
     if request is None:
         raise ImproperlyConfigured("You have to provide a request object in context")
 
-    c_vars = build_breadcrumbs(request)
+    c_vars = build_breadcrumbs(request, context)
     t = template.loader.get_template(template_name)
     context.update(c_vars)
     return t.render(context)
