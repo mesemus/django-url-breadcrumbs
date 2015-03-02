@@ -26,7 +26,7 @@ Installation
 
 2. Add ``urlbreadcrumbs`` to INSTALLED_APPS::
 
-    INSTALLED_APPS = ( 
+    INSTALLED_APPS = (
         ...
         'urlbreadcrumbs',
         ...
@@ -85,7 +85,7 @@ Also you can just include your breadcrumbs template::
 But to use it like this make sure you've added a context procesor ``urlbreadcrumbs.context_processors.build_breadcrumbs``
 in your ``TEMPLATE_CONTEXT_PROCESSORS`` setting.
 
-In your template you have one additional context variable called ``breadcrumbs`` 
+In your template you have one additional context variable called ``breadcrumbs``
 which is a list of two-tuples containing name and url of a breadcrumb.
 The default template used by ``django-url-breadcrumbs`` (``urlbreadcrumbs/default.html``) looks like this::
 
@@ -123,6 +123,19 @@ and ::
     )
 
 This should work as in previous example.
+
+Demo project
+============
+
+To run a demo project that is using ``django-url-breadcrumbs`` try this::
+
+    pip install Django
+    export DJANGO_SETTINGS_MODULE=urlbreadcrumbs.tests.settings
+    django-admin.py runserver
+
+and then visit http://127.0.0.1:8000 in your browser.
+
+You can find source code of this demo project in ``urlbreadcrumbs/tests``.
 
 Development
 ===============
