@@ -2,4 +2,7 @@
 
 {% block content %}
     <p>T1 sub page</p>
+    {% if pk %}
+        <p>Arg from view: {{ pk }}</p>
+    {% endif %}
 {% endblock %}

@@ -21,4 +21,6 @@ TEMPLATE_CONTEXT_PROCESSORS = \
 URLBREADCRUMBS_NAME_MAPPING = {
     'index'  : 'A title for a home page',
     't1home' : 'Index page of Test1',
+    'test1ns:t1home' : 'Index page for namespace version of Test1',
+    'test1ns:t1aaa_pk' : 'Example of a detail view',
 }
