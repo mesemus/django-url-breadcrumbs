@@ -20,7 +20,35 @@ else:
 RESOLVER_INSTANCE = resolver
 
 
+def get_name_from_mapping(resolver, try_path):
+    '''
+    get a name from mapping of a url given via ``try_path`` and resolved using
+    ``resolver``
+    '''
+    resolver_match = resolver.resolve(try_path)
+    if resolver_match is not None:
+
+        nspace, url_name = resolver_match.namespace, resolver_match.url_name
+        lookup = url_name
+        if nspace:
+            lookup = nspace + ":" + url_name
+
+        from_mapping = NAME_MAPPING.get(lookup, False)
+        if from_mapping:
+            name = from_mapping
+        elif hasattr(resolver_match, 'breadcrumb_verbose_name') and \
+                resolver_match.breadcrumb_verbose_name is not None:
+            name = resolver_match.breadcrumb_verbose_name
+        else:
+            name = resolver_match.url_name
+
+        return name
+
+
 def build_breadcrumbs(request, context=None):
+    '''
+    context processor for building breadcrumbs
+    '''
     if RESOLVER_INSTANCE is None:
         import warnings
         warnings.warn("You should provide a URLBREADCRUMBS_RESOLVER in your settings "
@@ -38,36 +66,27 @@ def build_breadcrumbs(request, context=None):
     parts = path.split(PATH_SPLIT_CHAR)
     if not parts[-1]:
         parts = parts[:-1]  # loose last empty element
-    try_path = ""
+
+    prev_try_path = ''
     for part in parts:
-        try_path = try_path + part + PATH_SPLIT_CHAR
-
+        name = ''
+        try_path = prev_try_path + part + PATH_SPLIT_CHAR
         try:
-
-            resolver_match = resolver.resolve(try_path)
-            if resolver_match is not None:
-
-                nspace, url_name = resolver_match.namespace, resolver_match.url_name
-                lookup = url_name
-                if nspace:
-                    lookup = nspace + ":" + url_name
-
-                from_mapping = NAME_MAPPING.get(lookup, False)
-                if from_mapping:
-                    name = from_mapping
-                elif hasattr(resolver_match, 'breadcrumb_verbose_name') and \
-                        resolver_match.breadcrumb_verbose_name is not None:
-                    name = resolver_match.breadcrumb_verbose_name
-                else:
-                    name = resolver_match.url_name
-
+            name = get_name_from_mapping(resolver, try_path)
+        except Resolver404:
+            # try without the trailing separator
+            try:
+                name = get_name_from_mapping(resolver, try_path.rstrip(PATH_SPLIT_CHAR))
+            except Resolver404:
+                pass
+        finally:
+            if name:
                 if context is not None:
                     tpl = Template(name)
                     name = tpl.render(context)
 
                 ret_list.append((name, try_path))
 
-        except Resolver404:
-            pass
+        prev_try_path = try_path
 
     return {'breadcrumbs': ret_list}

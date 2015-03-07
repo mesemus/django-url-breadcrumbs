@@ -22,6 +22,9 @@ test1_urls = patterns('',
                            {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
                            name='t1ccc_pk',
                            verbose_name='Test1 subpage via custom url with context var {{ pk }}'),
+                      url(r'^ddd/(?P<pk>\d+)$', simple_view_with_arg,
+                          {'template' : 'urlbreadcrumbs_tests/t1sub.html'},
+                          name='t1ddd_pk'),
                       )
 
 test2_urls = patterns('',

@@ -28,4 +28,5 @@ URLBREADCRUMBS_NAME_MAPPING = {
     'test1ns:t1home' : 'Index page for namespace version of Test1',
     'test1ns:t1aaa_pk' : 'Example of a detail view',
     'test1ns:t1bbb_pk' : 'Example of a detail view with pk: {{ pk }}',
+    't1ddd_pk' : 'Example of a detail view without a trailing slash with pk: {{ pk }}',
 }
