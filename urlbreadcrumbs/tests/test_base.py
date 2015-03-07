@@ -70,6 +70,18 @@ class BreadcrumbsTest(TestCase):
         text = 'Arg from view: 111'
         self.assertContains(res, text, count = 1, html=False)
 
+    def test_url_without_a_trailing_slash(self):
+        res = self.client.get('/test1/ddd/555')
+        assert res.status_code == 200
+
+        # simple inclusion doesn't treat mappings as templates
+        text = 'Example of a detail view without a trailing slash with pk: {{ pk }}'
+        self.assertContains(res, text, count = 1, html=False)
+
+        # but rendering breadcrumbs as a templatetag does
+        text = 'Example of a detail view without a trailing slash with pk: 555'
+        self.assertContains(res, text, count = 2, html=False)
+
     def test_url(self):
         res = self.client.get('/test1/aaa/')
         assert res.status_code == 200

@@ -2,10 +2,11 @@
 CHANGELOG
 ===========
 
-v. 0.3.4
-=========
+**unreleased**
+==============
 
 * Ability to pass template strings in mapping/verbose_name
+* Support urls without a trailing separator
 
 
 v. 0.3.3
