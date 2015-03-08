@@ -124,6 +124,29 @@ and ::
 
 This should work as in previous example.
 
+Context aware breadcrumbs
+=========================
+
+If you want you can provide simple template strings in your mappings.
+This only works if you render your breadcrumbs with a templatetag (``render_breadcrumbs``).
+For example to have some attribute of your object as a part of your breadcrumb
+you can provide something like this::
+
+    URLBREADCRUMBS_NAME_MAPPING = {
+        ...
+        'namespace:edit': 'Edit object {{ object.name }}',
+        ...
+    }
+
+And assuming your view that uses this breadcrumb will provide ``object`` in it's
+context and for example ``object.name`` is ``'foo'`` then you should see rendered
+breadcrumb as ``Edit object foo``.
+
+One important prerequisite for this to work properly is that every view "below"
+the url ``namespace:edit`` **MUST** provide ``object`` in it's context. By "below"
+we mean every url that starts with the same url that ``namespace:edit`` is configured to.
+
+
 Demo project
 ============
 
