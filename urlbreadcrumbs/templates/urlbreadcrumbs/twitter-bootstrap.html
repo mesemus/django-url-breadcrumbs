@@ -2,10 +2,10 @@
 {% for n, u in breadcrumbs %}
     {% if not forloop.last %}
         <li>
-          <a href="{{ u }}">{{ n }}</a>
+          <a href="{{ u }}" title="{{n}}">{{ n|truncatechars:20 }}</a>
         </li>
     {% else %}
-        <li class="active">{{ n }}</li>
+        <li class="active" title="{{n}}">{{ n|truncatechars:20 }}</li>
     {% endif %}
 {% endfor %}
 </ul>
