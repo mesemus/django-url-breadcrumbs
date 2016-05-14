@@ -42,7 +42,7 @@ def get_name_from_mapping(resolver, try_path):
         else:
             name = None
 
-        return name
+        return name, resolver_match
 
 
 def build_breadcrumbs(request, context=None):
@@ -70,19 +70,20 @@ def build_breadcrumbs(request, context=None):
     prev_try_path = ''
     for part in parts:
         name = ''
+        resolver_match = None
         try_path = prev_try_path + part + PATH_SPLIT_CHAR
         try:
-            name = get_name_from_mapping(resolver, try_path)
+            name, resolver_match = get_name_from_mapping(resolver, try_path)
         except Resolver404:
             # try without the trailing separator
             try:
-                name = get_name_from_mapping(resolver, try_path.rstrip(PATH_SPLIT_CHAR))
+                name, resolver_match = get_name_from_mapping(resolver, try_path.rstrip(PATH_SPLIT_CHAR))
             except Resolver404:
                 pass
         finally:
             if name:
                 if callable(name):
-                    breadcrumbs = name(request, context)
+                    breadcrumbs = name(request, context=context, resolver_match=resolver_match, path=try_path)
                     if breadcrumbs:
                         if isinstance(breadcrumbs, list) or isinstance(breadcrumbs, tuple):
                             for url, breadcrumb in breadcrumbs:

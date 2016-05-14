@@ -150,14 +150,14 @@ Callable breadcrumbs
 ====================
 
 A breadcrumb value in ``URLBREADCRUMBS_NAME_MAPPING`` can be a callable. In this case, it is called
-with a request and context (as kwargs) and should return:
+with a ``request`` and ``context``, ``resolver_match`` and ``path`` as kwargs and should return:
 
 1. a string or a lazy translation of the breadcrumb
 2. a list or tuple of (url, breadcrumb_value) which will get inserted instead of this breadcrumb
 
 Example::
 
-    def my_breadcrumb_func(request, context={}):
+    def my_breadcrumb_func(request, context={}, resolver_match=None, path=None):
         if 'object' not in context: return None         # will be ignored
         return (
             (object.parent.url, object.parent.title),
@@ -185,7 +185,7 @@ its value is taken as a breadcrumb value. This is useful for example for generic
         def as_view(cls, **initkwargs):
             ret = super().as_view(**initkwargs)
 
-            def breadcrumbs(request, context):
+            def breadcrumbs(request, context={}, resolver_match=None, path=None):
                 # do something with init kwargs and return breadcrumbs
                 return 'breadcrumb'
 
