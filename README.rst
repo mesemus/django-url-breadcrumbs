@@ -146,6 +146,14 @@ One important prerequisite for this to work properly is that every view "below"
 the url ``namespace:edit`` **MUST** provide ``object`` in it's context. By "below"
 we mean every url that starts with the same url that ``namespace:edit`` is configured to.
 
+Callable breadcrumbs
+====================
+
+A breadcrumb value in URLBREADCRUMBS_NAME_MAPPING can be a callable. In this case, it is called
+with a request and context (as kwargs) and should return:
+
+1. a string or a lazy translation of the breadcrumb
+2. a list or tuple of (url, breadcrumb_value) which will get inserted instead of this breadcrumb
 
 Demo project
 ============
