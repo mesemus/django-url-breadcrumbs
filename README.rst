@@ -149,7 +149,7 @@ we mean every url that starts with the same url that ``namespace:edit`` is confi
 Callable breadcrumbs
 ====================
 
-A breadcrumb value in URLBREADCRUMBS_NAME_MAPPING can be a callable. In this case, it is called
+A breadcrumb value in ``URLBREADCRUMBS_NAME_MAPPING`` can be a callable. In this case, it is called
 with a request and context (as kwargs) and should return:
 
 1. a string or a lazy translation of the breadcrumb
