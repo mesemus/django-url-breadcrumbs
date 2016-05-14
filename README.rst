@@ -171,6 +171,8 @@ Example::
         ...
     }
 
+This only works if you render your breadcrumbs with a templatetag (render_breadcrumbs).
+
 Demo project
 ============
 

@@ -81,11 +81,19 @@ def build_breadcrumbs(request, context=None):
                 pass
         finally:
             if name:
-                if context is not None:
+                if callable(name):
+                    breadcrumbs = name(request, context)
+                    if breadcrumbs:
+                        if isinstance(breadcrumbs, list) or isinstance(breadcrumbs, tuple):
+                            for url, breadcrumb in breadcrumbs:
+                                ret_list.append((breadcrumb, url))
+                        else:
+                            ret_list.append((breadcrumbs, try_path))
+                elif context is not None:
                     tpl = Template(name)
-                    name = tpl.render(context)
-
-                ret_list.append((name, try_path))
+                    ret_list.append((tpl.render(context), try_path))
+                else:
+                    ret_list.append((name, try_path))
 
         prev_try_path = try_path
 
