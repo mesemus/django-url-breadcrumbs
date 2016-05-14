@@ -2,7 +2,7 @@
 {% for n, u in breadcrumbs %}
     {% if not forloop.last %}
         <li>
-          <a href="{{ u }}">{{ n|title }}</a>
+          <a href="{{ u }}">{{ n }}</a>
         </li>
     {% else %}
         <li class="active">{{ n }}</li>
