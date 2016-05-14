@@ -173,6 +173,26 @@ Example::
 
 This only works if you render your breadcrumbs with a templatetag (``render_breadcrumbs``).
 
+Generic views
+=============
+
+If there is not a 'verbose_name' on ``burl`` and there is ``urlbreadcrumbs_verbose_name`` attribute on a view function,
+its value is taken as a breadcrumb value. This is useful for example for generic views with the following code::
+
+    class GenericDetailView(DetailView):
+
+        @classonlymethod
+        def as_view(cls, **initkwargs):
+            ret = super().as_view(**initkwargs)
+
+            def breadcrumbs(request, context):
+                # do something with init kwargs and return breadcrumbs
+                return 'breadcrumb'
+
+            ret.urlbreadcrumbs_verbose_name = breadcrumbs
+            return ret
+
+
 Demo project
 ============
 

@@ -59,6 +59,12 @@ class BreadRegexURLResolver(RegexURLResolver):
 def url(*args, **kwargs):
 
     vn = kwargs.pop("verbose_name", None)
+
+    if not vn:
+        if len(args) >= 2:
+            # regex, view ...
+            vn = getattr(args[1], 'urlbreadcrumbs_verbose_name', None)
+
     reg = djurl(*args, **kwargs)
 
     if isinstance(reg, RegexURLPattern):
