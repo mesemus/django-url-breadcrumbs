@@ -155,6 +155,22 @@ with a request and context (as kwargs) and should return:
 1. a string or a lazy translation of the breadcrumb
 2. a list or tuple of (url, breadcrumb_value) which will get inserted instead of this breadcrumb
 
+Example::
+
+    def my_breadcrumb_func(request, context={}):
+        if 'object' not in context: return None         # will be ignored
+        return (
+            (object.parent.url, object.parent.title),
+            (request.path, object.title)
+        )
+        
+
+    URLBREADCRUMBS_NAME_MAPPING = {
+        ...
+        'namespace:edit': my_breadcrumb_func,
+        ...
+    }
+
 Demo project
 ============
 
