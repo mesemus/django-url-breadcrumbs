@@ -40,7 +40,7 @@ def get_name_from_mapping(resolver, try_path):
                 resolver_match.breadcrumb_verbose_name is not None:
             name = resolver_match.breadcrumb_verbose_name
         else:
-            name = resolver_match.url_name
+            name = None
 
         return name
 
