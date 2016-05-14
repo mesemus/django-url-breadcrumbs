@@ -176,7 +176,7 @@ This only works if you render your breadcrumbs with a templatetag (``render_brea
 Generic views
 =============
 
-If there is not a 'verbose_name' on ``burl`` and there is ``urlbreadcrumbs_verbose_name`` attribute on a view function,
+If there is not a ``verbose_name`` on ``burl`` and there is ``urlbreadcrumbs_verbose_name`` attribute on a view function,
 its value is taken as a breadcrumb value. This is useful for example for generic views with the following code::
 
     class GenericDetailView(DetailView):
