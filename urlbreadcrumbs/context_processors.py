@@ -40,9 +40,9 @@ def get_name_from_mapping(resolver, try_path):
                 resolver_match.breadcrumb_verbose_name is not None:
             name = resolver_match.breadcrumb_verbose_name
         else:
-            name = None
+            name = resolver_match.url_name
 
-        return name, resolver_match
+        return name
 
 
 def build_breadcrumbs(request, context=None):
@@ -70,14 +70,13 @@ def build_breadcrumbs(request, context=None):
     prev_try_path = ''
     for part in parts:
         name = ''
-        resolver_match = None
         try_path = prev_try_path + part + PATH_SPLIT_CHAR
         try:
-            name, resolver_match = get_name_from_mapping(resolver, try_path)
+            name = get_name_from_mapping(resolver, try_path)
         except Resolver404:
             # try without the trailing separator
             try:
-                name, resolver_match = get_name_from_mapping(resolver, try_path.rstrip(PATH_SPLIT_CHAR))
+                name = get_name_from_mapping(resolver, try_path.rstrip(PATH_SPLIT_CHAR))
             except Resolver404:
                 pass
         finally:
@@ -95,6 +94,12 @@ def build_breadcrumbs(request, context=None):
                     ret_list.append((tpl.render(context), try_path))
                 else:
                     ret_list.append((name, try_path))
+
+                if context is not None:
+                    tpl = Template(name)
+                    name = tpl.render(context)
+
+                ret_list.append((name, try_path))
 
         prev_try_path = try_path
 

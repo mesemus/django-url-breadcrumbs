@@ -45,9 +45,8 @@ class BreadRegexURLResolver(RegexURLResolver):
                             sub_match_dict[smart_str(k)] = v
                         res_match = ResolverMatch(sub_match.func, sub_match.args, sub_match_dict,
                                                   sub_match.url_name,
-                                                  app_names=([self.app_name] + sub_match.app_names)
-                                                                    if self.app_name else sub_match.app_names,
-                                                  namespaces=[self.namespace] + sub_match.namespaces)
+                                                  self.app_name or sub_match.app_name,
+                                                  [self.namespace] + sub_match.namespaces)
                         res_match.breadcrumb_verbose_name = getattr(sub_match,
                                                                     'breadcrumb_verbose_name', None)
 
